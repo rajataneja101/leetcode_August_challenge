@@ -1,7 +1,7 @@
 class CombinationIterator {
 public:
     vector<string> res;
-    int i;
+    int i, rev_i;
     void Solve(string input, string output,int combinationLength){
         if(output.size()==combinationLength){
             res.push_back(output);
@@ -29,15 +29,17 @@ public:
     CombinationIterator(string characters, int combinationLength) {
         Solve(characters, "", combinationLength);
         i=res.size()-1;
-        sort(res.begin(), res.end(), greater<string>());
+        rev_i=i+1;
     }
     
     string next() {
-        return res[i--];
+        --rev_i;
+        cout<<rev_i<<" "<<i<<endl;
+        return res[i-rev_i];
     }
     
     bool hasNext() {
-        if(i>=0){
+        if(rev_i>0){
             return true;
         }
         else{
@@ -45,3 +47,10 @@ public:
         }
     }
 };
+
+/**
+ * Your CombinationIterator object will be instantiated and called as such:
+ * CombinationIterator* obj = new CombinationIterator(characters, combinationLength);
+ * string param_1 = obj->next();
+ * bool param_2 = obj->hasNext();
+ */
